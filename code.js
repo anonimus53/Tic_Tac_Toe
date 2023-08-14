@@ -106,90 +106,61 @@ const gameboard = (() => {
   };
  return {create, update};
 })();
+let playerToken = ''
+let enemyToken = ''
+let token = '';
 
-//token pick
-const tokenpick = (() => {
-    let token = ''
-     const get = () => {
-        return token;
-     }
-     const set = (newtoken) => {
-        token = newtoken;
-        return token;
-     }
-    return {get, set};
-})();    
 const xpick = document.getElementById('x');
 xpick.addEventListener('click', function(){
- tokenpick.set('x');
- console.log('x here'); 
+ playerToken = 'x';
+ enemyToken = 'o';
+
 });
 const opick = document.getElementById('o');
 opick.addEventListener('click', function(){
- tokenpick.set('o');
- console.log('o here'); 
+ playerToken = 'o';
+ enemyToken = 'x';
 });
 
-
-
-
-const player = (name) =>{
-  
-  return {name};
+const player = (name, token) =>{
+  return {name, token};
 };
 
-   const myturn = (() => {
-    let play = '';
-    if(tokenpick.get() == 'x' || tokenpick.get() == ''){
-       play = 'player';
-    }
-    
-     const get = () => {
-        return play;
-     }
-     const set = (newplay) => {
-        play = newplay;
-        return play;
-     }
-    return {get, set};
-})();    
+
+ const swapPlayer = (token) => {
+  if(token == playerToken){
+    token = enemyToken;
+  }
+  else{
+    token = playerToken;
+  }
+  return token;
+ };
 
 const displayController = (() => {
     const start = () => {
-        let token = 'x';
-        let enemytoken = 'o';
-        if(tokenpick.get() != ''){
-         token = tokenpick.get();
-        }
         
-        if(token == 'o'){
-            enemytoken = 'x';
-        }
         const name = prompt("Please enter your name", "Harry");
         const board = gameboard.create;
         const stateOfBoard = gameboard.update('startGame', '');
-        const human = player(name);
-        const enemy = player('Rival')
+        const human = player(name, playerToken);
+        const enemy = player('Rival', enemyToken);
         console.log('hello ' + name)
+        console.log('your oponent is :' + enemy.name);
         
-       
         const cellsArray = document.getElementsByClassName('cell');
         for(let i =0; i < cellsArray.length; i++){
             let position = cellsArray[i].getAttribute('id')
-            cellsArray[i].textContent = '';
+            
             cellsArray[i].addEventListener('click', function(){
-                if(myturn.get() == 'player'){
+              if(cellsArray[i].textContent == ''){
               gameboard.update(position, token);
               cellsArray[i].textContent = token;
-                 myturn.set('enemy');
-                }
-                else if(myturn.get() == 'enemy')
-                gameboard.update(position, enemytoken);
-              cellsArray[i].textContent = enemytoken;
-              myturn.set('player');
+              token = swapPlayer(token);
+              }
             });
         }
-        return {board , stateOfBoard, human, token, enemytoken, myturn};
+        return {board , stateOfBoard, human,};
     }
     
     return {start}
@@ -201,6 +172,10 @@ displayController.start();
 startButton.disabled = true;
 opick.disabled = true;
 xpick.disabled = true;
+if(playerToken == ''){
+    playerToken = 'x';
+    enemyToken = 'o';
+}
 });
 //restart button
 const restartButoon = document.getElementById('restart');
@@ -208,4 +183,4 @@ restartButoon.addEventListener('click', function(){
     location.reload();
 });
 
-//i can't change the tokens...
+//time to check for 3 in a row and tie
