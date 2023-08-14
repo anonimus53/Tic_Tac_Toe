@@ -63,6 +63,14 @@ h2{
     display: flex;
     justify-content: space-between;
 }
+
+#bot{
+    width: 30em;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+}
+
 .cell {
     background-color: #80cbc4;
     border: 1px solid #fff;
@@ -78,7 +86,7 @@ h2{
     font-family: monospace;
     border: 2px solid black;
     border-radius: 25px;
-    
+    margin: 10px;
   }
   button:hover {
     width: 7.5em;

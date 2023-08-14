@@ -1,12 +1,11 @@
-//Gameboard object, as a module.
-
 const gameboard = (() => {  
   //creates empty board.
   const create = [[0,0,0],[0,0,0],[0,0,0]];
 
   //current state of board that can be updated only from inside
   const state = [[0,0,0],[0,0,0],[0,0,0]];
-
+  
+  
   // position = 'one'to'nine' lowercase always
   // token = 'x'or'o' lowercase always
 
@@ -19,6 +18,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'two':
@@ -27,6 +27,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'three':
@@ -35,6 +36,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'four':
@@ -43,6 +45,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'five':
@@ -51,6 +54,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'six':
@@ -59,6 +63,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'seven':
@@ -67,6 +72,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'eight':
@@ -75,6 +81,7 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
      case 'nine':
@@ -83,37 +90,122 @@ const gameboard = (() => {
             return state;
            
         }else{
+            console.log('already taken!')
             return state;
         }
+        case 'restart':
+            for(let i = 0; i < state.length; i++){
+                for(let j = 0; j < state[i].length; j++){
+                state[i][j] = 0;
+             }
+            }
+            return state;
      default:
-        console.log("Position doesn't exist!");
+        return state;
     }
   };
  return {create, update};
 })();
 
-//const test = gameboard.update('eight', 'x');
-//console.log(test); works fine
+//token pick
+const tokenpick = (() => {
+    let token = ''
+     const get = () => {
+        return token;
+     }
+     const set = (newtoken) => {
+        token = newtoken;
+        return token;
+     }
+    return {get, set};
+})();    
+const xpick = document.getElementById('x');
+xpick.addEventListener('click', function(){
+ tokenpick.set('x');
+ console.log('x here'); 
+});
+const opick = document.getElementById('o');
+opick.addEventListener('click', function(){
+ tokenpick.set('o');
+ console.log('o here'); 
+});
 
-//Player object, as a factory function.
-const player = (name, token) =>{
-  //creates a player with a name and a token
-  return {name, token};
+
+
+
+const player = (name) =>{
+  
+  return {name};
 };
 
-//const human = player('george', 'x');
-//console.log(human.token); we get 'x' works fine
+   const myturn = (() => {
+    let play = '';
+    if(tokenpick.get() == 'x' || tokenpick.get() == ''){
+       play = 'player';
+    }
+    
+     const get = () => {
+        return play;
+     }
+     const set = (newplay) => {
+        play = newplay;
+        return play;
+     }
+    return {get, set};
+})();    
 
-//DisplayController object, as module
 const displayController = (() => {
-  
-    //will use gameboard.update or gameboard.create in here
-
+    const start = () => {
+        let token = 'x';
+        let enemytoken = 'o';
+        if(tokenpick.get() != ''){
+         token = tokenpick.get();
+        }
+        
+        if(token == 'o'){
+            enemytoken = 'x';
+        }
+        const name = prompt("Please enter your name", "Harry");
+        const board = gameboard.create;
+        const stateOfBoard = gameboard.update('startGame', '');
+        const human = player(name);
+        const enemy = player('Rival')
+        console.log('hello ' + name)
+        
+       
+        const cellsArray = document.getElementsByClassName('cell');
+        for(let i =0; i < cellsArray.length; i++){
+            let position = cellsArray[i].getAttribute('id')
+            cellsArray[i].textContent = '';
+            cellsArray[i].addEventListener('click', function(){
+                if(myturn.get() == 'player'){
+              gameboard.update(position, token);
+              cellsArray[i].textContent = token;
+                 myturn.set('enemy');
+                }
+                else if(myturn.get() == 'enemy')
+                gameboard.update(position, enemytoken);
+              cellsArray[i].textContent = enemytoken;
+              myturn.set('player');
+            });
+        }
+        return {board , stateOfBoard, human, token, enemytoken, myturn};
+    }
+    
+    return {start}
 })();
+//start button
+const startButton = document.getElementById('start');
+startButton.addEventListener('click', function(){
+displayController.start();
+startButton.disabled = true;
+opick.disabled = true;
+xpick.disabled = true;
+});
+//restart button
+const restartButoon = document.getElementById('restart');
+restartButoon.addEventListener('click', function(){
+    location.reload();
+});
 
-//We need to create players, manage their turns and,
-//update the board depending on the context.
-//Also win, lose and restart the game.
-
-//Maybe make and A.I to play against
-//with difficulties
+//i can't change the tokens...
