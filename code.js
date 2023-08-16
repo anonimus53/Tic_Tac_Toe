@@ -104,11 +104,52 @@ const gameboard = (() => {
         return state;
     }
   };
- return {create, update};
+ return {create, update, state};
 })();
-let playerToken = ''
-let enemyToken = ''
-let token = '';
+
+const checkWinner = (()=>{
+    let arr = gameboard.state;
+    let xcountrow = 0
+    let ocountrow = 0
+   
+    const now = ()=>{
+        for(let i=0; i< arr.length; i++){
+
+            xcountrow = 0
+            ocountrow = 0
+            for(let f=0; f< arr[i].length; f++){
+            if(arr[i][f] == 'x'){
+                xcountrow++
+            }
+            else if(arr[i][f] == 'o'){
+                ocountrow++
+            }
+            }
+
+            if(xcountrow == 3){
+                console.log('x wins')
+            }
+            else if(ocountrow == 3){
+                console.log('o wins')
+            }
+            
+        }
+        if(arr[0][0] == 'x' && arr[1][0] == 'x' && arr[2][0] == 'x'){
+            console.log('x wins go columns!')
+        }
+         if(arr[0][1] == 'x' && arr[1][1] == 'x' && arr[2][1] == 'x'){
+            console.log('x wins go columns!')
+        }
+         if(arr[0][2] == 'x' && arr[1][2] == 'x' && arr[2][2] == 'x'){
+            console.log('x wins go columns!')
+        }
+    };
+    return {now};
+})();
+
+let playerToken = 'x'
+let enemyToken = 'o'
+let token = 'x';
 
 const xpick = document.getElementById('x');
 xpick.addEventListener('click', function(){
@@ -157,6 +198,8 @@ const displayController = (() => {
               gameboard.update(position, token);
               cellsArray[i].textContent = token;
               token = swapPlayer(token);
+              checkWinner.now();
+              
               }
             });
         }
