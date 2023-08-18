@@ -112,6 +112,11 @@ const checkWinner = (()=>{
     let count = 0;
     let winner = '';
 
+    //win message
+    const winMessage = () => {
+
+    }
+
     const now = ()=>{
         //x wins
         if(arr[0][0] == 'x' && arr[1][0] == 'x' && arr[2][0] == 'x'){
@@ -188,24 +193,30 @@ const checkWinner = (()=>{
     const move = () => {
         count++;
     };
-    return {now, move};
+    return {now, move,};
 })();
 
-let playerToken = 'x'
-let enemyToken = 'o'
-let token = 'x';
+let playerToken = ''
+let enemyToken = ''
+let token = '';
 
 const xpick = document.getElementById('x');
 xpick.addEventListener('click', function(){
  playerToken = 'x';
  enemyToken = 'o';
-
+ xpick.style.backgroundColor = "red";
+ opick.style.backgroundColor = "white";
 });
 const opick = document.getElementById('o');
 opick.addEventListener('click', function(){
  playerToken = 'o';
  enemyToken = 'x';
+ opick.style.backgroundColor = "red";
+ xpick.style.backgroundColor = "white";
 });
+
+//we click x
+xpick.click();
 
 const player = (name, token) =>{
   return {name, token};
@@ -225,14 +236,25 @@ const player = (name, token) =>{
 const displayController = (() => {
     const start = () => {
         
-        const name = prompt("Please enter your name", "Harry");
+        const name = prompt("Player One enter your name", "David");
+        const enemyname = prompt("Player Two enter your name", "Goliath");
         const board = gameboard.create;
         const stateOfBoard = gameboard.update('startGame', '');
         const human = player(name, playerToken);
-        const enemy = player('Rival', enemyToken);
+        const enemy = player(enemyname, enemyToken);
         console.log('hello ' + name)
         console.log('your oponent is :' + enemy.name);
-        
+        //display name player One
+        const callplayer = document.createElement('h3');
+    const playerOne = document.getElementById('playerone')
+    callplayer.textContent =  human.name;
+    playerOne.appendChild(callplayer);
+        //display name player Two
+        const callenemy = document.createElement('h3');
+        const playerTwo = document.getElementById('playertwo')
+        callenemy.textContent = enemy.name;
+        playerTwo.appendChild(callenemy);
+        //display board
         const cellsArray = document.getElementsByClassName('cell');
         for(let i =0; i < cellsArray.length; i++){
             let position = cellsArray[i].getAttribute('id')
@@ -252,6 +274,7 @@ const displayController = (() => {
         return {board , stateOfBoard, human,};
     }
     
+
     return {start}
 })();
 //start button
@@ -272,6 +295,6 @@ restartButoon.addEventListener('click', function(){
     location.reload();
 });
 
-//Clean up the interface to allow players to put in their names,
-// include a button to start/restart the game and
+
+//make the game stop when someone wins
 // add a display element that congratulates the winning player!

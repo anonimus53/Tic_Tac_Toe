@@ -67,8 +67,8 @@ h2{
 #bot{
     width: 30em;
     height: 3em;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
 }
 
 .cell {
@@ -99,4 +99,45 @@ h2{
     box-shadow: 0 5px #666;
     transform: translateY(4px);
     
+    
+  }
+  #playerone {
+    background-color:burlywood;
+    height: 4em;
+    width: 15em;
+    margin-right: 10em;
+    margin-top: 0.5em;
+    text-align:center;
+    text-align-last: center;
+    border: solid 2px black;
+    border-radius: 10px;
+    position: relative;
+    bottom: 30em;
+    right: 20em;
+  }
+  #playertwo {
+    background-color: burlywood;
+    height: 4em;
+    width: 15em;
+    margin-left: 10em;
+    margin-top: 0.5em;
+    border: solid 2px black;
+    border-radius: 10px;
+    text-align:center;
+    text-align-last: center;
+    position: relative;
+    bottom: 30em;
+    
+  }
+  #restart {
+    position: absolute;
+    left: 44em;
+  }
+  #winmessage{
+    background-color: coral;
+    position: absolute;
+    height: 15em;
+    width: 100%;
+    top: 25em;
+    display: none;
   }
