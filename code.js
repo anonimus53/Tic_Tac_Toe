@@ -109,39 +109,46 @@ const gameboard = (() => {
 
 const checkWinner = (()=>{
     let arr = gameboard.state;
-    let xcountrow = 0
-    let ocountrow = 0
+   
    
     const now = ()=>{
-        for(let i=0; i< arr.length; i++){
-
-            xcountrow = 0
-            ocountrow = 0
-            for(let f=0; f< arr[i].length; f++){
-            if(arr[i][f] == 'x'){
-                xcountrow++
-            }
-            else if(arr[i][f] == 'o'){
-                ocountrow++
-            }
-            }
-
-            if(xcountrow == 3){
-                console.log('x wins')
-            }
-            else if(ocountrow == 3){
-                console.log('o wins')
-            }
-            
-        }
+        //x wins
         if(arr[0][0] == 'x' && arr[1][0] == 'x' && arr[2][0] == 'x'){
-            console.log('x wins go columns!')
+            console.log('x wins go column1')
         }
          if(arr[0][1] == 'x' && arr[1][1] == 'x' && arr[2][1] == 'x'){
-            console.log('x wins go columns!')
+            console.log('x wins go column2')
         }
          if(arr[0][2] == 'x' && arr[1][2] == 'x' && arr[2][2] == 'x'){
-            console.log('x wins go columns!')
+            console.log('x wins go columns3')
+        }
+        if(arr[0][0] == 'x' && arr[0][1] == 'x' && arr[0][2] == 'x'){
+            console.log('x wins go row1')
+        }
+        if(arr[1][0] == 'x' && arr[1][1] == 'x' && arr[1][2] == 'x'){
+            console.log('x wins go row2')
+        }
+        if(arr[2][0] == 'x' && arr[2][1] == 'x' && arr[2][2] == 'x'){
+            console.log('x wins go row3')
+        }
+        //o wins
+        if(arr[0][0] == 'o' && arr[1][0] == 'o' && arr[2][0] == 'o'){
+            console.log('o wins go column1')
+        }
+         if(arr[0][1] == 'o' && arr[1][1] == 'o' && arr[2][1] == 'o'){
+            console.log('o wins go column2')
+        }
+         if(arr[0][2] == 'o' && arr[1][2] == 'o' && arr[2][2] == 'o'){
+            console.log('o wins go columns3')
+        }
+        if(arr[0][0] == 'o' && arr[0][1] == 'o' && arr[0][2] == 'o'){
+            console.log('o wins go row1')
+        }
+        if(arr[1][0] == 'o' && arr[1][1] == 'o' && arr[1][2] == 'o'){
+            console.log('o wins go row2')
+        }
+        if(arr[2][0] == 'o' && arr[2][1] == 'o' && arr[2][2] == 'o'){
+            console.log('o wins go row3')
         }
     };
     return {now};
@@ -200,6 +207,7 @@ const displayController = (() => {
               token = swapPlayer(token);
               checkWinner.now();
               
+              
               }
             });
         }
@@ -226,4 +234,4 @@ restartButoon.addEventListener('click', function(){
     location.reload();
 });
 
-//time to check for 3 in a row and tie
+//time to check for 3 in cross axis
