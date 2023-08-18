@@ -109,49 +109,86 @@ const gameboard = (() => {
 
 const checkWinner = (()=>{
     let arr = gameboard.state;
-   
-   
+    let count = 0;
+    let winner = '';
+
     const now = ()=>{
         //x wins
         if(arr[0][0] == 'x' && arr[1][0] == 'x' && arr[2][0] == 'x'){
             console.log('x wins go column1')
+            winner = 'x';
         }
          if(arr[0][1] == 'x' && arr[1][1] == 'x' && arr[2][1] == 'x'){
             console.log('x wins go column2')
+            winner = 'x';
         }
          if(arr[0][2] == 'x' && arr[1][2] == 'x' && arr[2][2] == 'x'){
             console.log('x wins go columns3')
+            winner = 'x';
         }
         if(arr[0][0] == 'x' && arr[0][1] == 'x' && arr[0][2] == 'x'){
             console.log('x wins go row1')
+            winner = 'x';
         }
         if(arr[1][0] == 'x' && arr[1][1] == 'x' && arr[1][2] == 'x'){
             console.log('x wins go row2')
         }
         if(arr[2][0] == 'x' && arr[2][1] == 'x' && arr[2][2] == 'x'){
             console.log('x wins go row3')
+            winner = 'x';
+        }
+        if(arr[0][0] == 'x' && arr[1][1] == 'x' && arr[2][2] == 'x'){
+            console.log('x wins go cross1')
+        }
+        if(arr[0][2] == 'x' && arr[1][1] == 'x' && arr[2][0] == 'x'){
+            console.log('x wins go cross2')
+            winner = 'x';
         }
         //o wins
         if(arr[0][0] == 'o' && arr[1][0] == 'o' && arr[2][0] == 'o'){
             console.log('o wins go column1')
+            winner = 'o';
         }
          if(arr[0][1] == 'o' && arr[1][1] == 'o' && arr[2][1] == 'o'){
             console.log('o wins go column2')
+            winner = 'o';
         }
          if(arr[0][2] == 'o' && arr[1][2] == 'o' && arr[2][2] == 'o'){
             console.log('o wins go columns3')
+            winner = 'o';
         }
         if(arr[0][0] == 'o' && arr[0][1] == 'o' && arr[0][2] == 'o'){
             console.log('o wins go row1')
+            winner = 'o';
         }
         if(arr[1][0] == 'o' && arr[1][1] == 'o' && arr[1][2] == 'o'){
             console.log('o wins go row2')
+            winner = 'o';
         }
         if(arr[2][0] == 'o' && arr[2][1] == 'o' && arr[2][2] == 'o'){
             console.log('o wins go row3')
+            winner = 'o';
+        }
+        if(arr[0][0] == 'o' && arr[1][1] == 'o' && arr[2][2] == 'o'){
+            console.log('o wins go cross1')
+            winner = 'o';
+        }
+        if(arr[0][2] == 'o' && arr[1][1] == 'o' && arr[2][0] == 'o'){
+            console.log('o wins go cross2')
+            winner = 'o';
+        }
+        //tie
+        
+            
+        
+        if(count == 8 && winner == ''){
+            console.log("It's a Tie!")
         }
     };
-    return {now};
+    const move = () => {
+        count++;
+    };
+    return {now, move};
 })();
 
 let playerToken = 'x'
@@ -206,6 +243,7 @@ const displayController = (() => {
               cellsArray[i].textContent = token;
               token = swapPlayer(token);
               checkWinner.now();
+              checkWinner.move();
               
               
               }
@@ -234,4 +272,6 @@ restartButoon.addEventListener('click', function(){
     location.reload();
 });
 
-//time to check for 3 in cross axis
+//Clean up the interface to allow players to put in their names,
+// include a button to start/restart the game and
+// add a display element that congratulates the winning player!
