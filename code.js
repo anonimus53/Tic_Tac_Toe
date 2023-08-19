@@ -120,7 +120,9 @@ const checkWinner = (()=>{
           let winnername = playerOne.textContent;
           message.textContent =  winnername+ ' Wins!'
           message.style.display = 'block';
-          
+          const board = document.getElementById('board')
+          board.replaceChildren('GAME OVER');
+          board.style.display = 'hidden';
        }
        if((winner == 'x' && playerToken == 'o')||(winner == 'o' && playerToken == 'x')){
         const message = document.getElementById('winmessage')
@@ -128,13 +130,18 @@ const checkWinner = (()=>{
           let winnername = playerTwo.textContent;
           message.textContent =  winnername+ ' Wins!'
           message.style.display = 'block';
+          const board = document.getElementById('board')
+          board.replaceChildren('GAME OVER');
+          board.style.display = 'hidden';
           
        }
        if(winner == 'none'){
         const message = document.getElementById('winmessage')
           message.textContent = "It's a Tie!"
           message.style.display = 'block';
-          
+          const board = document.getElementById('board')
+          board.replaceChildren('GAME OVER');
+          board.style.display = 'hidden';
        }
     }
 
