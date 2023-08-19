@@ -30,7 +30,7 @@ html, body{
 h1{
     font-size:7em;
     font-style: italic;
-    flex: 1;
+    
     color: rgb(223, 215, 108);
     text-shadow: -3px 0 black, 0 3px black,
      3px 0 black, 0 -3px black;
