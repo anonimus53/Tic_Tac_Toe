@@ -114,7 +114,28 @@ const checkWinner = (()=>{
 
     //win message
     const winMessage = () => {
-
+       if((winner == 'x' && playerToken == 'x')||(winner == 'o' && playerToken == 'o')){
+          const message = document.getElementById('winmessage')
+          const playerOne = document.getElementById('playerone')
+          let winnername = playerOne.textContent;
+          message.textContent =  winnername+ ' Wins!'
+          message.style.display = 'block';
+          
+       }
+       if((winner == 'x' && playerToken == 'o')||(winner == 'o' && playerToken == 'x')){
+        const message = document.getElementById('winmessage')
+          const playerTwo = document.getElementById('playertwo')
+          let winnername = playerTwo.textContent;
+          message.textContent =  winnername+ ' Wins!'
+          message.style.display = 'block';
+          
+       }
+       if(winner == 'none'){
+        const message = document.getElementById('winmessage')
+          message.textContent = "It's a Tie!"
+          message.style.display = 'block';
+          
+       }
     }
 
     const now = ()=>{
@@ -122,72 +143,89 @@ const checkWinner = (()=>{
         if(arr[0][0] == 'x' && arr[1][0] == 'x' && arr[2][0] == 'x'){
             console.log('x wins go column1')
             winner = 'x';
+            winMessage();
         }
          if(arr[0][1] == 'x' && arr[1][1] == 'x' && arr[2][1] == 'x'){
             console.log('x wins go column2')
             winner = 'x';
+            winMessage();
         }
          if(arr[0][2] == 'x' && arr[1][2] == 'x' && arr[2][2] == 'x'){
             console.log('x wins go columns3')
             winner = 'x';
+            winMessage();
         }
         if(arr[0][0] == 'x' && arr[0][1] == 'x' && arr[0][2] == 'x'){
             console.log('x wins go row1')
             winner = 'x';
+            winMessage();
         }
         if(arr[1][0] == 'x' && arr[1][1] == 'x' && arr[1][2] == 'x'){
             console.log('x wins go row2')
+            winner = 'x';
+            winMessage();
         }
         if(arr[2][0] == 'x' && arr[2][1] == 'x' && arr[2][2] == 'x'){
             console.log('x wins go row3')
             winner = 'x';
+            winMessage();
         }
         if(arr[0][0] == 'x' && arr[1][1] == 'x' && arr[2][2] == 'x'){
             console.log('x wins go cross1')
+            winner = 'x';
+            winMessage();
         }
         if(arr[0][2] == 'x' && arr[1][1] == 'x' && arr[2][0] == 'x'){
             console.log('x wins go cross2')
             winner = 'x';
+            winMessage();
         }
         //o wins
         if(arr[0][0] == 'o' && arr[1][0] == 'o' && arr[2][0] == 'o'){
             console.log('o wins go column1')
             winner = 'o';
+            winMessage();
         }
          if(arr[0][1] == 'o' && arr[1][1] == 'o' && arr[2][1] == 'o'){
             console.log('o wins go column2')
             winner = 'o';
+            winMessage();
         }
          if(arr[0][2] == 'o' && arr[1][2] == 'o' && arr[2][2] == 'o'){
             console.log('o wins go columns3')
             winner = 'o';
+            winMessage();
         }
         if(arr[0][0] == 'o' && arr[0][1] == 'o' && arr[0][2] == 'o'){
             console.log('o wins go row1')
             winner = 'o';
+            winMessage();
         }
         if(arr[1][0] == 'o' && arr[1][1] == 'o' && arr[1][2] == 'o'){
             console.log('o wins go row2')
             winner = 'o';
+            winMessage();
         }
         if(arr[2][0] == 'o' && arr[2][1] == 'o' && arr[2][2] == 'o'){
             console.log('o wins go row3')
             winner = 'o';
+            winMessage();
         }
         if(arr[0][0] == 'o' && arr[1][1] == 'o' && arr[2][2] == 'o'){
             console.log('o wins go cross1')
             winner = 'o';
+            winMessage();
         }
         if(arr[0][2] == 'o' && arr[1][1] == 'o' && arr[2][0] == 'o'){
             console.log('o wins go cross2')
             winner = 'o';
+            winMessage();
         }
         //tie
-        
-            
-        
-        if(count == 8 && winner == ''){
+        if(count == 9 && winner == ''){
             console.log("It's a Tie!")
+            winner = 'none';
+            winMessage();
         }
     };
     const move = () => {
@@ -217,12 +255,12 @@ opick.addEventListener('click', function(){
 
 //we click x
 xpick.click();
-
+//player factory function
 const player = (name, token) =>{
   return {name, token};
 };
 
-
+//swap player play turn
  const swapPlayer = (token) => {
   if(token == playerToken){
     token = enemyToken;
@@ -248,11 +286,13 @@ const displayController = (() => {
         const callplayer = document.createElement('h3');
     const playerOne = document.getElementById('playerone')
     callplayer.textContent =  human.name;
+    playerOne.textContent = '';
     playerOne.appendChild(callplayer);
         //display name player Two
         const callenemy = document.createElement('h3');
         const playerTwo = document.getElementById('playertwo')
         callenemy.textContent = enemy.name;
+        playerTwo.textContent = '';
         playerTwo.appendChild(callenemy);
         //display board
         const cellsArray = document.getElementsByClassName('cell');
@@ -271,7 +311,7 @@ const displayController = (() => {
               }
             });
         }
-        return {board , stateOfBoard, human,};
+        return {board , stateOfBoard, name, enemyname};
     }
     
 
@@ -284,10 +324,7 @@ displayController.start();
 startButton.disabled = true;
 opick.disabled = true;
 xpick.disabled = true;
-if(playerToken == ''){
-    playerToken = 'x';
-    enemyToken = 'o';
-}
+
 });
 //restart button
 const restartButoon = document.getElementById('restart');
@@ -297,4 +334,3 @@ restartButoon.addEventListener('click', function(){
 
 
 //make the game stop when someone wins
-// add a display element that congratulates the winning player!

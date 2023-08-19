@@ -136,8 +136,11 @@ h2{
   #winmessage{
     background-color: coral;
     position: absolute;
-    height: 15em;
+    
     width: 100%;
-    top: 25em;
+    top: 3em;
     display: none;
+    text-align: center;
+    font-size: 10em;
+    text-shadow: 10px 10px #80cbc4;
   }
