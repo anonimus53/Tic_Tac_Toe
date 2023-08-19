@@ -14,7 +14,6 @@ html, body{
     background-color: rgb(82, 204, 163);
     display: flex;
     justify-content:center;
-    
     align-items: center;
     height: 20vh;
    
@@ -30,7 +29,6 @@ html, body{
 h1{
     font-size:7em;
     font-style: italic;
-    
     color: rgb(223, 215, 108);
     text-shadow: -3px 0 black, 0 3px black,
      3px 0 black, 0 -3px black;
